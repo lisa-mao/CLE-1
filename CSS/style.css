@@ -1,0 +1,245 @@
+html {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #474448;
+}
+
+h1 {
+    all: unset;
+    font-size: 2rem;
+}
+
+h2 {
+    all: unset;
+    font-size: 1.5rem;
+}
+
+p {
+    all: unset;
+    font-size: 1rem;
+}
+
+a {
+    all: unset;
+    font-size: 1rem;
+}
+
+.header-app, .navbar-app, .notification-off {
+    display: none;
+}
+
+@media (max-width: 1080px) {
+    .header-app {
+        width: 100vw;
+        height: 12.5vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #ecce8e;
+    }
+
+    .header-app h1 {
+        font-size: 1.5rem;
+    }
+
+    .header-app h2 {
+        font-size: 1.25rem;
+        font-style: italic;
+    }
+
+    .profile-picture {
+        flex: 1;
+        max-width: 64px;
+        height: 64px;
+        margin: 10px;
+        background-color: #000000;
+        border-radius: 100%;
+    }
+
+    .profile-data {
+        flex: 2;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .profile-name {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .profile-items {
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+    }
+
+    .navbar-app {
+        width: 100vw;
+        height: 12.5vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        background-color: #ecce8e;
+        position: fixed;
+        bottom: 0;
+    }
+
+    .notification-off {
+        display: none;
+    }
+    
+    .navbar-app a {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 64px;
+        margin: 10px;
+        color: #ecce8e;
+        font-size: 2.5rem;
+        background-color: #474448;
+        border: 2px solid #474448;
+        border-radius: 15px;
+    }
+    
+    .navbar-app #add {
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 64px;
+        margin-left: 10px;
+        margin-right: 50px;
+        color: #ecce8e;
+        font-size: 2.5rem;
+        background-color: #474448;
+        border: 2px solid #474448;
+        border-radius: 15px;
+    }
+    
+    #notification {
+        transition: all 0.4s ease;
+    }
+    
+    .notification-on {
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        height: 15vh;
+    }
+    
+    .notification {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        padding: 20px;
+        background-color: #ffffff;
+    }
+    .notification-image {
+        flex: 1;
+        max-width: 64px;
+        height: 64px;
+        background-color: #000000;
+        border-radius: 100%;
+    }
+    
+    .notification-text {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .notification-text h2 {
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+    
+    .notification p {
+        font-size: 1rem;
+    }
+    
+    .notification-counter {
+        flex: 1;
+        max-width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        background-color: #f71643;
+        border-radius: 100%;
+    }
+
+    .body-app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .body-app form {
+        flex: 1;
+    }
+
+    .body-app form input {
+        all: unset;
+        padding: 5px 20px 5px 20px;
+        border: 2px solid #ecce8e;
+        color: #ecce8e;
+    }
+
+    .body-app-content {
+        flex: 2;
+        width: 100%;
+        padding: 20px 0px 20px 0px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .body-app-content h2 {
+        color: #ecce8e;
+    }
+
+    .rooms-sections {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .app-content-rooms {
+        flex: 1;
+        width: 80vw;
+        display: flex;
+        flex-direction: row;
+        background-color: #ecce8e;
+        border: 2px solid #ecce8e;
+        border-radius: 12px;
+        padding: 10px 20px 10px 20px;
+    }
+
+    .rooms-image {
+        width: 64px;
+        height: 64px;
+        background-color: #000000;
+        border-radius: 8px;
+    }
+
+    .app-content-rooms .rooms-text {
+        flex: 2;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .app-content-rooms .rooms-text p {
+        font-size: 2rem;
+    }
+}
