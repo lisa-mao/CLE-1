@@ -195,7 +195,37 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
 })
 
 
+function resetSelection(colour: number) {
+    for (let i = 0; i < 4; i++) {
+        light.setAll(colour);
+        pause(100);
+        light.clear();
+        pause(100);
+    }
 
+    light.setPixelColor(0, Colors.Blue);
+    selectorPhase = 1;
+    taskSelector = 0;
+    selectorModeOn = true;
+
+}
+
+//ab click om de selectie opnieuwe te doen, zonder de oude waardes weg te halen.
+input.buttonsAB.onEvent(ButtonEvent.Click, function () {
+    resetSelection(Colors.Orange);
+})
+
+//ab longclick om alle waardes weg te halen
+input.buttonsAB.onEvent(ButtonEvent.LongClick, function () {
+
+    //reset alle opgeseslagen tasks
+    activeTasksArray = [false, false, false, false, false, false, false, false, false, false];
+    taskHourStartArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    taskHourEndArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    resetSelection(Colors.White);
+
+})
 
 
 
