@@ -24,7 +24,7 @@ let appMinutesSet = 30;
 let betweenTime = false
 
 //checkt als de infrorood sensor is afgegaan
-let signalRead = true;
+let signalRead = true; //VOOR TESTING NORMAAL MOET IE OP FALSE
 
 // slaat de status van de task op
 let tasksStatus: boolean[] = [];
@@ -52,6 +52,9 @@ let isDark = false;
 //task verwijderen toevoegen met longclick b, zet de leds aan van de tasks die active zijn. die kan je vervolgens selecteren.
 // longclick a+b om alles te verwijderen
 // a+b om selectie proces te laten starten
+
+let resetTime = 0;
+let lightSensorActivated = true;
 
 let selectorModeOn = false
 let selectorPhase = 0
@@ -98,15 +101,31 @@ function resetSelection(colour: number) {
 }
 
 
-
-
 //start met het selecteren van een task
 input.buttonA.onEvent(ButtonEvent.LongClick, function () {
-    resetSelection(Colors.White)
-})
-//ab click om de selectie opnieuwe te doen, zonder de oude waardes weg te halen.
-input.buttonsAB.onEvent(ButtonEvent.Click, function () {
     resetSelection(Colors.White);
+})
+//ab click om de lightsensor aan of uit te zetten
+input.buttonsAB.onEvent(ButtonEvent.Click, function () {
+    if (lightSensorActivated) {
+
+        lightSensorActivated = false;
+        for (let i = 0; i < 3; i++) {
+            light.showRing("red red black red red red red black red red");
+            pause(100);
+            light.clear();
+            pause(100);
+        }
+    } else {
+        lightSensorActivated = true;
+        for (let i = 0; i < 3; i++) {
+            light.showRing("black green green green black black green green green black");
+            pause(100);
+            light.clear();
+            pause(100);
+        }
+    }
+
 })
 
 //ab longclick om alle waardes weg te halen
@@ -121,7 +140,30 @@ input.buttonsAB.onEvent(ButtonEvent.LongClick, function () {
 
 })
 
+//longclick
+input.buttonB.onEvent(ButtonEvent.LongClick, function () {
+    if (selectorPhase === 1 && activeTasksArray[taskSelector]) {
+        activeTasksArray[taskSelector] = false
+        light.setPixelColor(taskSelector, Colors.Black)
+    }
+})
 
+
+function selectorPhaseChange(pos: number, color: number, amountRepeat: number) {
+    selectorPhase = pos + 1;
+    light.clear()
+
+    for (let i = 0; i < amountRepeat + 1; i++) {
+        light.setPixelColor(i, Colors.Blue);
+    }
+    for (let i = 0; i < 2; i++) {
+        light.setPixelColor(0, Colors.Black);
+        pause(100)
+        light.setPixelColor(0, color);
+        pause(100);
+    }
+
+}
 
 input.buttonB.onEvent(ButtonEvent.Click, function () {
 
@@ -144,82 +186,28 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
         }
         // zet de uren van de eindtijd vast en zet de 15 minutes klaar
         if (selectorPhase === 6) {
-            selectorPhase = 7
-            light.clear()
-            light.setPixelColor(1, Colors.Blue)
-            light.setPixelColor(2, Colors.Blue)
-            light.setPixelColor(3, Colors.Blue)
+            selectorPhaseChange(6, Colors.Green, 3);
             endTimeSelector15Minutes = 0
-            for (let i = 0; i < 2; i++) {
-                light.setPixelColor(0, Colors.Black);
-                pause(100)
-                light.setPixelColor(0, Colors.Green);
-                pause(100);
-            }
         }
         //zet het dag deel van de eindtijd vast en zet de startpositie van de eindtijd uren klaar
         if (selectorPhase === 5) {
-            selectorPhase = 6
-            light.clear()
-            light.setPixelColor(1, Colors.Blue)
-            light.setPixelColor(2, Colors.Blue)
-            light.setPixelColor(3, Colors.Blue)
-            light.setPixelColor(4, Colors.Blue)
-            light.setPixelColor(5, Colors.Blue)
-            for (let i = 0; i < 2; i++) {
-                light.setPixelColor(0, Colors.Black);
-                pause(100)
-                light.setPixelColor(0, Colors.Orange);
-                pause(100);
-            }
+            selectorPhaseChange(5, Colors.Orange, 5);
             endTimeSelectorHour = 0
         }
         //zet de 15 minutes van de startijd vast en zet het dagdeel van de eindtijd klaar
         if (selectorPhase === 4) {
-            selectorPhase = 5
-            light.clear()
-            light.setPixelColor(1, Colors.Blue)
-            light.setPixelColor(2, Colors.Blue)
-            light.setPixelColor(3, Colors.Blue)
-            for (let i = 0; i < 2; i++) {
-                light.setPixelColor(0, Colors.Black);
-                pause(100)
-                light.setPixelColor(0, Colors.Red);
-                pause(100);
-            }
+            selectorPhaseChange(4, Colors.Red, 3);
             partOfDaySelectorEnd = 0
         }
         // zet de uren van het dagdeel vast en zet het selecteren van de 15 minutes klaar
         if (selectorPhase === 3) {
-            selectorPhase = 4
-            light.clear()
-            light.setPixelColor(1, Colors.Blue)
-            light.setPixelColor(2, Colors.Blue)
-            light.setPixelColor(3, Colors.Blue)
-            for (let i = 0; i < 2; i++) {
-                light.setPixelColor(0, Colors.Black);
-                pause(100)
-                light.setPixelColor(0, Colors.Green);
-                pause(100);
-            }
+            selectorPhaseChange(3, Colors.Green, 3);
             startTimeSelector15Minutes = 0
         }
         //zet het dagdeel van de starttijd vast en zet de uren van de starttijd klaar
         if (selectorPhase === 2) {
-            selectorPhase = 3
-            light.clear()
-            light.setPixelColor(1, Colors.Blue)
-            light.setPixelColor(2, Colors.Blue)
-            light.setPixelColor(3, Colors.Blue)
-            light.setPixelColor(4, Colors.Blue)
-            light.setPixelColor(5, Colors.Blue)
-            for (let i = 0; i < 2; i++) {
-                light.setPixelColor(0, Colors.Black);
-                pause(100)
-                light.setPixelColor(0, Colors.Orange);
-                pause(100);
-            }
-            startTimeSelectorHour = 0
+            selectorPhaseChange(2, Colors.Orange, 5);
+            startTimeSelectorHour = 0;
         }
         //zet het selecteren van het dagdeel voor de starttijd klaar
         if (selectorPhase === 1) {
@@ -234,60 +222,54 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
                 light.setPixelColor(0, Colors.Red);
                 pause(100);
             }
+            selectorPhaseChange(1, Colors.Red, 3);
             partOfDaySelectorStart = 0
         }
     }
 })
 
+
+
+
+function blinkColours(pos: number, colour: number) {
+    light.setPixelColor(pos, Colors.Black);
+    pause(100)
+    light.setPixelColor(pos, colour);
+    pause(100);
+}
+
 function blinkAnimation() {
     for (let i = 0; i < 2; i++) {
         if (selectorPhase === 1) {
-            light.setPixelColor(taskSelector, Colors.Black);
-            pause(100)
-            light.setPixelColor(taskSelector, taskColorsArray[taskSelector]);
-            pause(100);
+            blinkColours(taskSelector, taskColorsArray[taskSelector]);
         }
         if (selectorPhase === 2) {
-            light.setPixelColor(partOfDaySelectorStart, Colors.Black);
-            pause(100)
-            light.setPixelColor(partOfDaySelectorStart, Colors.Red);
-            pause(100);
+            blinkColours(partOfDaySelectorStart, Colors.Red);
         }
         if (selectorPhase === 3) {
-            light.setPixelColor(startTimeSelectorHour, Colors.Black);
-            pause(100)
-            light.setPixelColor(startTimeSelectorHour, Colors.Orange);
-            pause(100);
+            blinkColours(startTimeSelectorHour, Colors.Orange);
         }
         if (selectorPhase === 4) {
-            light.setPixelColor(startTimeSelector15Minutes, Colors.Black);
-            pause(100)
-            light.setPixelColor(startTimeSelector15Minutes, Colors.Green);
-            pause(100);
+            blinkColours(startTimeSelector15Minutes, Colors.Green);
         }
         if (selectorPhase === 5) {
-            light.setPixelColor(partOfDaySelectorEnd, Colors.Black);
-            pause(100)
-            light.setPixelColor(partOfDaySelectorEnd, Colors.Red);
-            pause(100);
+            blinkColours(partOfDaySelectorEnd, Colors.Red);
         }
         if (selectorPhase === 6) {
-            light.setPixelColor(endTimeSelectorHour, Colors.Black);
-            pause(100)
-            light.setPixelColor(endTimeSelectorHour, Colors.Orange);
-            pause(100);
+            blinkColours(endTimeSelectorHour, Colors.Orange);
         }
         if (selectorPhase === 7) {
-            light.setPixelColor(endTimeSelector15Minutes, Colors.Black);
-            pause(100)
-            light.setPixelColor(endTimeSelector15Minutes, Colors.Green);
-            pause(100);
+            blinkColours(endTimeSelector15Minutes, Colors.Green);
+
         }
     }
 
 }
 
 input.buttonA.onEvent(ButtonEvent.Click, function () {
+
+    resetTime = control.timer1.seconds() + 30;//NIEUW
+
     //selecteer welke task je wilt aanmaken
     if (selectorModeOn) {
         if (selectorPhase === 1) {
@@ -363,7 +345,15 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
 })
 
 
-
+function tookTooLong() {
+    if (selectorPhase >= 2) {
+        if (control.timer1.seconds() >= resetTime) {
+            resetSelection(Colors.White);
+            selectorPhase = 0;
+            light.clear();
+        }
+    }
+}
 
 
 
@@ -449,8 +439,13 @@ function checkTask() {
                     // vertel het programma dat je in de goede time slot zit.
                     betweenTime = true;
 
-                    //checkt als het niet donker is
-                    if (!isDark) {
+                    if (lightSensorActivated) {
+                        //checkt als het niet donker is
+                        if (!isDark) {
+                            activateAlarm(i);
+                            tasksStatus[i] = true;
+                        }
+                    } else {
                         activateAlarm(i);
                         tasksStatus[i] = true;
                     }
@@ -458,9 +453,15 @@ function checkTask() {
             }
             else if ((taskHourStartArray[i] <= hourCounter) && (hourCounter <= taskHourEndArray[i]) && activeTasksArray[i]) {
 
-                if (!isDark) {
+                if (lightSensorActivated) {
+                    if (!isDark) {
+                        betweenTime = true;
+                        activateAlarm(i);
+                        tasksStatus[i] = true;
+                    }
+                } else {
                     betweenTime = true;
-                    activateAlarm(i); //new
+                    activateAlarm(i);
                     tasksStatus[i] = true;
                 }
             }
@@ -501,6 +502,9 @@ forever(function () {
     currentTime();
     checkTask();
     signalRead = false;
+
+    tookTooLong();
+
     console.log(minCounter)
     // console.log(`seconden: ${secCounter}`);
     if (selectorModeOn && selectorPhase === 1) {
@@ -516,8 +520,5 @@ forever(function () {
     } else {
         isDark = false;
     }
-
-
-
 
 })
