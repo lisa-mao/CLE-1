@@ -29,7 +29,7 @@ a {
     font-size: 1rem;
 }
 
-.header-app, .navbar-app, .notification-off {
+.header-app, .navbar-app, .notification-off, .body-app {
     display: none;
 }
 
@@ -241,5 +241,9 @@ a {
 
     .app-content-rooms .rooms-text p {
         font-size: 2rem;
+    }
+
+    footer {
+        display: none;
     }
 }
