@@ -120,6 +120,9 @@ input.buttonsAB.onEvent(ButtonEvent.LongClick, function () {
     resetSelection(Colors.Red);
 
 })
+
+
+
 input.buttonB.onEvent(ButtonEvent.Click, function () {
 
 
@@ -147,13 +150,13 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
             light.setPixelColor(2, Colors.Blue)
             light.setPixelColor(3, Colors.Blue)
             endTimeSelector15Minutes = 0
-            for (let i = 0; i < 2; i++) { 
-                    light.setPixelColor(0, Colors.Black);
-                    pause(100)
-                    light.setPixelColor(0, Colors.Green);
-                    pause(100);
-        }
+            for (let i = 0; i < 2; i++) {
+                light.setPixelColor(0, Colors.Black);
+                pause(100)
+                light.setPixelColor(0, Colors.Green);
+                pause(100);
             }
+        }
         //zet het dag deel van de eindtijd vast en zet de startpositie van de eindtijd uren klaar
         if (selectorPhase === 5) {
             selectorPhase = 6
@@ -263,25 +266,25 @@ function blinkAnimation() {
             pause(100);
         }
         if (selectorPhase === 5) {
-            light.setPixelColor(partOfDaySelectorStart, Colors.Black);
+            light.setPixelColor(partOfDaySelectorEnd, Colors.Black);
             pause(100)
-            light.setPixelColor(partOfDaySelectorStart, Colors.Red);
+            light.setPixelColor(partOfDaySelectorEnd, Colors.Red);
             pause(100);
         }
         if (selectorPhase === 6) {
-            light.setPixelColor(startTimeSelectorHour, Colors.Black);
+            light.setPixelColor(endTimeSelectorHour, Colors.Black);
             pause(100)
-            light.setPixelColor(startTimeSelectorHour, Colors.Orange);
+            light.setPixelColor(endTimeSelectorHour, Colors.Orange);
             pause(100);
         }
         if (selectorPhase === 7) {
-            light.setPixelColor(startTimeSelector15Minutes, Colors.Black);
+            light.setPixelColor(endTimeSelector15Minutes, Colors.Black);
             pause(100)
-            light.setPixelColor(startTimeSelector15Minutes, Colors.Green);
+            light.setPixelColor(endTimeSelector15Minutes, Colors.Green);
             pause(100);
         }
     }
-    
+
 }
 
 input.buttonA.onEvent(ButtonEvent.Click, function () {
