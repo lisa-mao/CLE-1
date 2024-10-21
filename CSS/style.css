@@ -110,7 +110,6 @@ a {
 }
 .manual-steps-container, .introductions-container {
     width: 90vw;
-    height: 50vh;
     display: flex;
     gap: 10px;
 }
@@ -127,10 +126,15 @@ a {
 .manual-image-container, .introductions-image-container {
     margin-top: 20px;
     width: 90%;
-    height: 90%;
+    height: 40vh;
     background-color: #000000;
 }
 
+.manual-image-container img, .introductions-image-container img, .process-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .manual-steps h3, .introductions-sections h3 {
     margin-top: 20px;
     font-weight: bold;
@@ -197,6 +201,11 @@ footer {
     justify-content: space-between;
     align-items: center;
     background-color: #ecce8e;
+}
+
+footer p {
+    font-size: 0.75rem;
+    margin-right: 20px;
 }
 
 footer a {
