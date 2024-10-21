@@ -19,6 +19,11 @@ h2 {
     font-size: 1.5rem;
 }
 
+h3 {
+    all: unset;
+    font-size: 1.25rem;
+}
+
 p {
     all: unset;
     font-size: 1rem;
@@ -31,6 +36,179 @@ a {
 
 .header-app, .navbar-app, .notification-off, .body-app {
     display: none;
+}
+
+.navbar-website {
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ecce8e;
+    border-bottom: 2px solid black;
+}
+
+.navbar-website section {
+    margin-right: 50px;
+}
+
+.navbar-website a {
+    padding: 20px;
+    margin-right: 10px;
+    border: 2px solid #a6951f;
+    border-radius: 5px;
+}
+
+.navbar-website a:hover {
+    text-decoration: underline;
+    background-color: #a6951f;
+}
+
+.logo-container {
+    height: 100%;
+    width: 33vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container img {
+    height: 85%;
+    width: 85%;
+    object-fit: contain;
+}
+
+.header-website {
+    height: 75vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-bottom: 2px solid black;
+}
+
+.header-website h1 {
+    font-weight: bold;
+}
+
+.user-manual, .process, .introductions {
+    width: 100%;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 2px solid black;
+}
+
+.user-manual h2, .process h2, .introductions h2 {
+    color: #ecce8e;
+    font-weight: bold;
+    padding: 50px 0px 20px 0px;
+}
+.manual-steps-container, .introductions-container {
+    width: 90vw;
+    height: 50vh;
+    display: flex;
+    gap: 10px;
+}
+
+.manual-steps, .introductions-sections {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ecce8e;
+    border-radius: 10px;
+}
+
+.manual-image-container, .introductions-image-container {
+    margin-top: 20px;
+    width: 90%;
+    height: 90%;
+    background-color: #000000;
+}
+
+.manual-steps h3, .introductions-sections h3 {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.manual-steps p, .introductions-sections p {
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+.process-steps {
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.process-steps-container {
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+}
+
+.process-text {
+    flex: 1.5;
+    display: flex;
+    flex-direction: row;
+    background-color: #ecce8e;
+    border-radius: 10px;
+}
+
+.process-text section {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.process-text section h3 {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.process-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ecce8e;
+    border-radius: 10px;
+}
+
+.process-image-container {
+    width: 90%;
+    height: 90%;
+    background-color: #000000;
+}
+
+footer {
+    height: 15vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ecce8e;
+}
+
+footer a {
+    margin-right: 50px;
+    padding: 20px;
+    border: 2px solid #a6951f;
+    border-radius: 5px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    background-color: #a6951f;
 }
 
 @media (max-width: 1080px) {
@@ -243,7 +421,7 @@ a {
         font-size: 2rem;
     }
 
-    footer {
+    .navbar-website, .header-website, .body-website, footer {
         display: none;
     }
 }

@@ -9,9 +9,30 @@
 </head>
 
 <body>
+    <nav>
+        <!--De onderste navigatie bar in de mock-up app-->
+        <section class="navbar-app">
+            <!--Deze paragraph word ook gebruikt in de Javascript code, vandaar dat er hier een ID word gebruikt.-->
+            <p id="add">+</p>
+            <a href="">&#9734;</a>
+            <a href="instellingen.html">&#9881;</a>
+            <a href="index.html">&#8962;</a>
+        </section>
+        <section id="navbar-website" class="navbar-website">
+            <!--Hier moet de navbar voor de website komen-->
+            <div class="logo-container">
+                <img src="images/Logo.png" alt="Het logo van ons product: Rayminder">
+            </div>
+            <section>
+                <a href="#user-manual">Gebruikershandleiding</a>
+                <a href="#process">Ons proces</a>
+                <a href="#introductions">Wie wij zijn</a>
+            </section>
+        </section>
+    </nav>
     <header>
         <!--De top bar binnen de mock-up app-->
-        <section class="header-app">
+        <div class="header-app">
             <div class="profile-picture"></div>
             <div class="profile-data">
                 <section class="profile-name">
@@ -23,27 +44,18 @@
                     <p>15-10-2024</p>
                 </section>
             </div>
-        </section>
+        </div>
         <section class="header-website">
             <!--Hierzo moet de header voor de website nog komen-->
+            <h1>De Rayminder</h1>
+            <p>Epische Product Descriptie met op de achtergrond een foto colage van ons proces.</p>
         </section>
     </header>
-    <nav>
-        <!--De onderste navigatie bar in de mock-up app-->
-        <section class="navbar-app">
-            <p id="add">+</p>
-            <a href="">&#9734;</a>
-            <a href="instellingen.html">&#9881;</a>
-            <a href="index.html">&#8962;</a>
-        </section>
-        <section class="navbar-website">
-            <!--Hier moet de navbar voor de website komen-->
-        </section>
-    </nav>
     <main>
         <!--Een verborgen Div voor de test notificatie binnen de mock-up app-->
+        <!--Deze Div word ook veranderd met gebruik van Javascript, vandaar dat er hier een ID word gebruikt.-->
         <div class="notification-off" id="notification">
-            <section class="notification">
+            <div class="notification">
                 <div class="notification-image"></div>
                 <section class="notification-text">
                     <h2>Rayminder</h2>
@@ -52,53 +64,169 @@
                 <section class="notification-counter">
                     <p>?</p>
                 </section>
-            </section>
+            </div>
         </div>
-        <section class="body-app">
+        <div class="body-app">
             <!--De selection bar binnen de mock-up app-->
             <form action="">
                 <input type="text">
             </form>
-            <div class="body-app-content">
+            <section class="body-app-content">
                 <h2>My rooms:</h2>
                 <div class="rooms-sections">
                     <!--De selectie van kamers-->
                     <a href="rooms/room1.html">
-                        <section class="app-content-rooms">
+                        <div class="app-content-rooms">
                             <div class="rooms-image"></div>
-                            <div class="rooms-text">
+                            <section class="rooms-text">
                                 <p>Kamer 1</p>
                                 <p>&#9734;</p>
-                            </div>
-                        </section>
+                            </section>
+                        </div>
                     </a>
                     <a href="rooms/room2.html">
-                        <section class="app-content-rooms">
+                        <div class="app-content-rooms">
                             <div class="rooms-image"></div>
-                            <div class="rooms-text">
+                            <section class="rooms-text">
                                 <p>Kamer 2</p>
                                 <p>&#9734;</p>
-                            </div>
-                        </section>
+                            </section>
+                        </div>
                     </a>
                     <a href="rooms/room3.html">
-                        <section class="app-content-rooms">
+                        <div class="app-content-rooms">
                             <div class="rooms-image"></div>
-                            <div class="rooms-text">
+                            <section class="rooms-text">
                                 <p>Kamer 3</p>
                                 <p>&#9734;</p>
-                            </div>
-                        </section>
+                            </section>
+                        </div>
                     </a>
                 </div>
-            </div>
-        </section>
-        <section class="body-website">
-            <!--Hier moet de body van de Website nog koment-->
-        </section>
+            </section>
+        </div>
+        <div class="body-website">
+            <!--Dit is de body specifiek gebruikt voor de Website zelf-->
+            <section id="user-manual" class="user-manual">
+                <h2>Gebruikershandleiding</h2>
+                <div class="manual-steps-container">
+                    <section class="manual-steps">
+                        <div class="manual-image-container">
+                            <img src="" alt="">
+                        </div>
+                        <h3>Stap 1:</h3>
+                        <p>Een brede uitleg van wat je moet doen</p>
+                    </section>
+                    <section class="manual-steps">
+                        <div class="manual-image-container">
+                            <img src="" alt="">
+                        </div>
+                        <h3>Stap 2:</h3>
+                        <p>Een brede uitleg van wat je moet doen</p>
+                    </section>
+                    <section class="manual-steps">
+                        <div class="manual-image-container">
+                            <img src="" alt="">
+                        </div>
+                        <h3>Stap 3:</h3>
+                        <p>Een brede uitleg van wat je moet doen</p>
+                    </section>
+                    <section class="manual-steps">
+                        <div class="manual-image-container">
+                            <img src="" alt="">
+                        </div>
+                        <h3>Stap 4:</h3>
+                        <p>Een brede uitleg van wat je moet doen</p>
+                    </section>
+                </div>
+            </section>
+            <section id="process" class="process">
+                <h2>Ons proces</h2>
+                <div class="process-steps">
+                    <div class="process-steps-container">
+                        <div class="process-text">
+                            <section>
+                                <h3>Onderzoek en Interviews</h3>
+                                <p>Hier vullen wij meer informatie in over ons proces</p>
+                            </section>
+                        </div>
+                        <div class="process-image">
+                            <div class="process-image-container">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-steps-container">
+                        <div class="process-image">
+                            <div class="process-image-container">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                        <div class="process-text">
+                            <section>
+                                <h3>Brainstormen</h3>
+                                <p>Hier vullen wij meer informatie in over ons proces</p>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="process-steps-container">
+                        <div class="process-text">
+                            <section>
+                                <h3>Prototyperen</h3>
+                                <p>Hier vullen wij meer informatie in over ons proces</p>
+                            </section>
+                        </div>
+                        <div class="process-image">
+                            <div class="process-image-container">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="introductions" class="introductions">
+                <h2>Wie zijn wij!</h2>
+                <div class="introductions-container">
+                    <section class="introductions-sections">
+                        <div class="introductions-image-container">
+                            <img src="" alt="">
+                        </div>
+                        <h3>Amber</h3>
+                        <p>Leg hier kort iets over jezelf uit en waar jij verantwoordelijk voor was in dit project</p>
+                    </section>
+                    <section class="introductions-sections">
+                        <div class="introductions-image-container">
+                            <img src="" alt="">
+                        </div>
+                        <h3>David</h3>
+                        <p>Leg hier kort iets over jezelf uit en waar jij verantwoordelijk voor was in dit project</p>
+                    </section>
+                    <section class="introductions-sections">
+                        <div class="introductions-image-container">
+                            <img src="" alt="">
+                        </div>
+                        <h3>Lisa</h3>
+                        <p>Leg hier kort iets over jezelf uit en waar jij verantwoordelijk voor was in dit project</p>
+                    </section>
+                    <section class="introductions-sections">
+                        <div class="introductions-image-container">
+                            <img src="" alt="">
+                        </div>
+                        <h3>Miles</h3>
+                        <p>Leg hier kort iets over jezelf uit en waar jij verantwoordelijk voor was in dit project</p>
+                    </section>
+                </div>
+            </section>
+        </div>
     </main>
     <footer>
         <!--Footer word niet in de app gebruikt dus zal alleen in de website komen-->
+        <div class="logo-container">
+            <img src="images/Logo.png" alt="Het logo van ons product: Rayminder">
+        </div>
+        <section>
+            <a href="#navbar-website">Terug naar Boven</a>
+        </section>
     </footer>
     <script src="JS/demofunctionality.js"></script>
     <script src="JS/makecode.js"></script>
