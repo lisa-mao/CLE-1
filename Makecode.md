@@ -20,11 +20,6 @@ let appHoursSet = 0;
 let appMinutesSet = 30;
 
 
-
-//array om het begin en eind uur van een taak op te slaan.
-let taskMinuteStart: number[] = [32];
-let taskMinuteEnd: number[] = [45];
-
 //checkt als de current tijd zich in de task blok zit.
 let betweenTime = false
 
@@ -90,7 +85,12 @@ function resetSelection(colour: number) {
         }
     }
     light.clear()
-    light.setPixelColor(0, Colors.Blue);
+    for (let i = 0; i < 2; i++) {
+        light.setPixelColor(0, Colors.Black);
+        pause(100)
+        light.setPixelColor(0, Colors.Blue);
+        pause(100);
+    }
     selectorPhase = 1;
     taskSelector = 0;
     selectorModeOn = true;
@@ -143,68 +143,147 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
         if (selectorPhase === 6) {
             selectorPhase = 7
             light.clear()
-            light.setPixelColor(0, Colors.Green)
             light.setPixelColor(1, Colors.Blue)
             light.setPixelColor(2, Colors.Blue)
             light.setPixelColor(3, Colors.Blue)
             endTimeSelector15Minutes = 0
+            for (let i = 0; i < 2; i++) { 
+                    light.setPixelColor(0, Colors.Black);
+                    pause(100)
+                    light.setPixelColor(0, Colors.Green);
+                    pause(100);
         }
+            }
         //zet het dag deel van de eindtijd vast en zet de startpositie van de eindtijd uren klaar
         if (selectorPhase === 5) {
             selectorPhase = 6
             light.clear()
-            light.setPixelColor(0, Colors.Orange)
             light.setPixelColor(1, Colors.Blue)
             light.setPixelColor(2, Colors.Blue)
             light.setPixelColor(3, Colors.Blue)
             light.setPixelColor(4, Colors.Blue)
             light.setPixelColor(5, Colors.Blue)
+            for (let i = 0; i < 2; i++) {
+                light.setPixelColor(0, Colors.Black);
+                pause(100)
+                light.setPixelColor(0, Colors.Orange);
+                pause(100);
+            }
             endTimeSelectorHour = 0
         }
         //zet de 15 minutes van de startijd vast en zet het dagdeel van de eindtijd klaar
         if (selectorPhase === 4) {
             selectorPhase = 5
             light.clear()
-            light.setPixelColor(0, Colors.Red)
             light.setPixelColor(1, Colors.Blue)
             light.setPixelColor(2, Colors.Blue)
             light.setPixelColor(3, Colors.Blue)
+            for (let i = 0; i < 2; i++) {
+                light.setPixelColor(0, Colors.Black);
+                pause(100)
+                light.setPixelColor(0, Colors.Red);
+                pause(100);
+            }
             partOfDaySelectorEnd = 0
         }
         // zet de uren van het dagdeel vast en zet het selecteren van de 15 minutes klaar
         if (selectorPhase === 3) {
             selectorPhase = 4
             light.clear()
-            light.setPixelColor(0, Colors.Green)
             light.setPixelColor(1, Colors.Blue)
             light.setPixelColor(2, Colors.Blue)
             light.setPixelColor(3, Colors.Blue)
+            for (let i = 0; i < 2; i++) {
+                light.setPixelColor(0, Colors.Black);
+                pause(100)
+                light.setPixelColor(0, Colors.Green);
+                pause(100);
+            }
             startTimeSelector15Minutes = 0
         }
         //zet het dagdeel van de starttijd vast en zet de uren van de starttijd klaar
         if (selectorPhase === 2) {
             selectorPhase = 3
             light.clear()
-            light.setPixelColor(0, Colors.Orange)
             light.setPixelColor(1, Colors.Blue)
             light.setPixelColor(2, Colors.Blue)
             light.setPixelColor(3, Colors.Blue)
             light.setPixelColor(4, Colors.Blue)
             light.setPixelColor(5, Colors.Blue)
+            for (let i = 0; i < 2; i++) {
+                light.setPixelColor(0, Colors.Black);
+                pause(100)
+                light.setPixelColor(0, Colors.Orange);
+                pause(100);
+            }
             startTimeSelectorHour = 0
         }
         //zet het selecteren van het dagdeel voor de starttijd klaar
         if (selectorPhase === 1) {
             selectorPhase = 2
             light.clear()
-            light.setPixelColor(0, Colors.Red)
             light.setPixelColor(1, Colors.Blue)
             light.setPixelColor(2, Colors.Blue)
             light.setPixelColor(3, Colors.Blue)
+            for (let i = 0; i < 2; i++) {
+                light.setPixelColor(0, Colors.Black);
+                pause(100)
+                light.setPixelColor(0, Colors.Red);
+                pause(100);
+            }
             partOfDaySelectorStart = 0
         }
     }
 })
+
+function blinkAnimation() {
+    for (let i = 0; i < 2; i++) {
+        if (selectorPhase === 1) {
+            light.setPixelColor(taskSelector, Colors.Black);
+            pause(100)
+            light.setPixelColor(taskSelector, taskColorsArray[taskSelector]);
+            pause(100);
+        }
+        if (selectorPhase === 2) {
+            light.setPixelColor(partOfDaySelectorStart, Colors.Black);
+            pause(100)
+            light.setPixelColor(partOfDaySelectorStart, Colors.Red);
+            pause(100);
+        }
+        if (selectorPhase === 3) {
+            light.setPixelColor(startTimeSelectorHour, Colors.Black);
+            pause(100)
+            light.setPixelColor(startTimeSelectorHour, Colors.Orange);
+            pause(100);
+        }
+        if (selectorPhase === 4) {
+            light.setPixelColor(startTimeSelector15Minutes, Colors.Black);
+            pause(100)
+            light.setPixelColor(startTimeSelector15Minutes, Colors.Green);
+            pause(100);
+        }
+        if (selectorPhase === 5) {
+            light.setPixelColor(partOfDaySelectorStart, Colors.Black);
+            pause(100)
+            light.setPixelColor(partOfDaySelectorStart, Colors.Red);
+            pause(100);
+        }
+        if (selectorPhase === 6) {
+            light.setPixelColor(startTimeSelectorHour, Colors.Black);
+            pause(100)
+            light.setPixelColor(startTimeSelectorHour, Colors.Orange);
+            pause(100);
+        }
+        if (selectorPhase === 7) {
+            light.setPixelColor(startTimeSelector15Minutes, Colors.Black);
+            pause(100)
+            light.setPixelColor(startTimeSelector15Minutes, Colors.Green);
+            pause(100);
+        }
+    }
+    
+}
+
 input.buttonA.onEvent(ButtonEvent.Click, function () {
     //selecteer welke task je wilt aanmaken
     if (selectorModeOn) {
@@ -215,6 +294,7 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 taskSelector = 0
             }
             light.setPixelColor(taskSelector, taskColorsArray[taskSelector])
+            blinkAnimation();
         }
         //selecteer het dagdeel van de starttijd
         if (selectorPhase === 2) {
@@ -224,6 +304,7 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 partOfDaySelectorStart = 0
             }
             light.setPixelColor(partOfDaySelectorStart, Colors.Red)
+            blinkAnimation();
         }
         //selecteer het uur van de starttijd
         if (selectorPhase === 3) {
@@ -233,6 +314,7 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 startTimeSelectorHour = 0
             }
             light.setPixelColor(startTimeSelectorHour, Colors.Orange)
+            blinkAnimation();
         }
         //selecteer starttijd per kwartier
         if (selectorPhase === 4) {
@@ -242,6 +324,7 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 startTimeSelector15Minutes = 0
             }
             light.setPixelColor(startTimeSelector15Minutes, Colors.Green)
+            blinkAnimation();
         }
         //selecteer het dagdeel van de eindtijd
         if (selectorPhase === 5) {
@@ -251,6 +334,7 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 partOfDaySelectorEnd = 0
             }
             light.setPixelColor(partOfDaySelectorEnd, Colors.Red)
+            blinkAnimation();
         }
         //selecteer het uur van de eindtijd
         if (selectorPhase === 6) {
@@ -260,6 +344,7 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 endTimeSelectorHour = 0
             }
             light.setPixelColor(endTimeSelectorHour, Colors.Orange)
+            blinkAnimation();
         }
         //eindtijd per kwartier instellen
         if (selectorPhase === 7) {
@@ -269,6 +354,7 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 endTimeSelector15Minutes = 0
             }
             light.setPixelColor(endTimeSelector15Minutes, Colors.Green)
+            blinkAnimation();
         }
     }
 })
@@ -412,7 +498,7 @@ forever(function () {
     currentTime();
     checkTask();
     signalRead = false;
-
+    console.log(minCounter)
     // console.log(`seconden: ${secCounter}`);
     if (selectorModeOn && selectorPhase === 1) {
         for (let i = 0; i < taskColorsArray.length; i++) {
@@ -427,5 +513,8 @@ forever(function () {
     } else {
         isDark = false;
     }
+
+
+
 
 })
