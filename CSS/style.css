@@ -20,13 +20,21 @@ h2 {
 }
 
 h3 {
-    all: unset;
     font-size: 1.25rem;
 }
 
 p {
     all: unset;
     font-size: 1rem;
+}
+
+li {
+    font-size: 1rem;
+}
+
+ul {
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 
 a {
@@ -86,8 +94,18 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-image: url(../images/collage.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-blend-mode: lighten;
+    background-color: #665f5f;
     border-bottom: 2px solid black;
+    transition: all 1s ease;
+}
+
+.header-website:hover {
+    background-color: #c2b3b3;
 }
 
 .header-website h1 {
@@ -108,9 +126,11 @@ a {
     font-weight: bold;
     padding: 50px 0px 20px 0px;
 }
-.manual-steps-container, .introductions-container {
+
+.manual-steps-container, .manual-steps-container-2, .introductions-container {
     width: 90vw;
     display: flex;
+    justify-content: center;
     gap: 10px;
 }
 
@@ -119,6 +139,16 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    background-color: #ecce8e;
+    border-radius: 10px;
+}
+.manual-steps-2 {
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     background-color: #ecce8e;
     border-radius: 10px;
 }
@@ -128,22 +158,30 @@ a {
     width: 90%;
     height: 40vh;
     background-color: #000000;
+    border-radius: 10px;
 }
 
 .manual-image-container img, .introductions-image-container img, .process-image-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px;
 }
-.manual-steps h3, .introductions-sections h3 {
-    margin-top: 20px;
+.manual-steps h3, .manual-steps-2 h3, .introductions-sections h3 {
+    margin-top: 15px;
+    margin-bottom: 5px;
     font-weight: bold;
 }
 
-.manual-steps p, .introductions-sections p {
+.margin-change {
+    margin-bottom: 10px;
+}
+
+.manual-steps p, .manual-steps-2 p, .margin-change, .introductions-sections p {
     margin-bottom: 20px;
     width: 90%;
 }
+
 
 .process-steps {
     width: 90vw;
@@ -191,6 +229,7 @@ a {
     width: 90%;
     height: 90%;
     background-color: #000000;
+    border-radius: 10px;
 }
 
 footer {
