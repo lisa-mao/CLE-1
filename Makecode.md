@@ -174,10 +174,11 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
     if (selectorModeOn) {
         //zet de task vast met begin en eindtijd
         if (selectorPhase === 8) {
-
+            music.playTone(Note.B, 1000);
             activeTasksArray[taskSelector] = true
             light.clear();
             selectorModeOn = false;
+
         }
 
 
@@ -189,13 +190,6 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
             light.clear()
             light.showRing("green green green green green black black black black black");
             // selectorModeOn = false
-            music.playTone(Note.A, 1000);
-            console.log(taskHourStartArray)
-            console.log(task15MinutesStartArray)
-            console.log(taskHourEndArray)
-            console.log(task15MinutesEndArray)
-
-
 
         }
         // zet de uren van de eindtijd vast en zet de 15 minutes klaar
@@ -286,60 +280,76 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
         }
         //selecteer het dagdeel van de starttijd
         if (selectorPhase === 2) {
-            light.setPixelColor(partOfDaySelectorStart, Colors.Blue)
             partOfDaySelectorStart++
             if (partOfDaySelectorStart > 3) {
                 partOfDaySelectorStart = 0
+                light.setPixelColor(1, Colors.Blue)
+                light.setPixelColor(2, Colors.Blue)
+                light.setPixelColor(3, Colors.Blue)
             }
             light.setPixelColor(partOfDaySelectorStart, Colors.Red)
             blinkAnimation();
         }
         //selecteer het uur van de starttijd
         if (selectorPhase === 3) {
-            light.setPixelColor(startTimeSelectorHour, Colors.Blue)
             startTimeSelectorHour++
             if (startTimeSelectorHour > 5) {
                 startTimeSelectorHour = 0
+                light.setPixelColor(1, Colors.Blue)
+                light.setPixelColor(2, Colors.Blue)
+                light.setPixelColor(3, Colors.Blue)
+                light.setPixelColor(4, Colors.Blue)
+                light.setPixelColor(5, Colors.Blue)
             }
             light.setPixelColor(startTimeSelectorHour, Colors.Orange)
             blinkAnimation();
         }
         //selecteer starttijd per kwartier
         if (selectorPhase === 4) {
-            light.setPixelColor(startTimeSelector15Minutes, Colors.Blue)
             startTimeSelector15Minutes++
             if (startTimeSelector15Minutes > 3) {
                 startTimeSelector15Minutes = 0
+                light.setPixelColor(1, Colors.Blue)
+                light.setPixelColor(2, Colors.Blue)
+                light.setPixelColor(3, Colors.Blue)
             }
             light.setPixelColor(startTimeSelector15Minutes, Colors.Green)
             blinkAnimation();
         }
         //selecteer het dagdeel van de eindtijd
         if (selectorPhase === 5) {
-            light.setPixelColor(partOfDaySelectorEnd, Colors.Blue)
             partOfDaySelectorEnd++
             if (partOfDaySelectorEnd > 3) {
                 partOfDaySelectorEnd = 0
+                light.setPixelColor(1, Colors.Blue)
+                light.setPixelColor(2, Colors.Blue)
+                light.setPixelColor(3, Colors.Blue)
             }
             light.setPixelColor(partOfDaySelectorEnd, Colors.Red)
             blinkAnimation();
         }
         //selecteer het uur van de eindtijd
         if (selectorPhase === 6) {
-            light.setPixelColor(endTimeSelectorHour, Colors.Blue)
             endTimeSelectorHour++
             if (endTimeSelectorHour > 5) {
                 endTimeSelectorHour = 0
+                light.setPixelColor(1, Colors.Blue)
+                light.setPixelColor(2, Colors.Blue)
+                light.setPixelColor(3, Colors.Blue)
+                light.setPixelColor(4, Colors.Blue)
+                light.setPixelColor(5, Colors.Blue)
             }
             light.setPixelColor(endTimeSelectorHour, Colors.Orange)
             blinkAnimation();
         }
         //eindtijd per kwartier instellen
         if (selectorPhase === 7) {
-            light.setPixelColor(endTimeSelector15Minutes, Colors.Blue)
             endTimeSelector15Minutes++
             if (endTimeSelector15Minutes > 3) {
                 endTimeSelector15Minutes = 0
+                light.setPixelColor(1, Colors.Blue)
+                light.setPixelColor(2, Colors.Blue)
+                light.setPixelColor(3, Colors.Blue)
             }
             light.setPixelColor(endTimeSelector15Minutes, Colors.Green)
             blinkAnimation();
