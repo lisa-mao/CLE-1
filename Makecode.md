@@ -56,6 +56,8 @@ let isDark = false;
 let resetTime = 0;
 let lightSensorActivated = true;
 
+let taskRepeat = true;
+
 let selectorModeOn = false
 let selectorPhase = 0
 let taskSelector = 0
@@ -171,16 +173,28 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
 
     if (selectorModeOn) {
         //zet de task vast met begin en eindtijd
-        if (selectorPhase === 7) {
-            calculationTime();
+        if (selectorPhase === 8) {
+
             activeTasksArray[taskSelector] = true
+            light.clear();
+            selectorModeOn = false;
+        }
+
+
+
+        if (selectorPhase === 7) {
+            selectorPhase++;
+            calculationTime();
+            // activeTasksArray[taskSelector] = true;
             light.clear()
-            selectorModeOn = false
+            light.showRing("green green green green green black black black black black");
+            // selectorModeOn = false
             music.playTone(Note.A, 1000);
             console.log(taskHourStartArray)
             console.log(task15MinutesStartArray)
             console.log(taskHourEndArray)
             console.log(task15MinutesEndArray)
+
 
 
         }
@@ -211,19 +225,8 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
         }
         //zet het selecteren van het dagdeel voor de starttijd klaar
         if (selectorPhase === 1) {
-            selectorPhase = 2
-            light.clear()
-            light.setPixelColor(1, Colors.Blue)
-            light.setPixelColor(2, Colors.Blue)
-            light.setPixelColor(3, Colors.Blue)
-            for (let i = 0; i < 2; i++) {
-                light.setPixelColor(0, Colors.Black);
-                pause(100)
-                light.setPixelColor(0, Colors.Red);
-                pause(100);
-            }
             selectorPhaseChange(1, Colors.Red, 3);
-            partOfDaySelectorStart = 0
+            partOfDaySelectorStart = 0;
         }
     }
 })
@@ -341,6 +344,17 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
             light.setPixelColor(endTimeSelector15Minutes, Colors.Green)
             blinkAnimation();
         }
+
+        if (selectorPhase === 8) {
+            light.clear();
+            if (taskRepeat) {
+                taskRepeat = false;
+                light.showRing("black black black black black red red red red red");
+            } else {
+                taskRepeat = true;
+                light.showRing("green green green green green black black black black black");
+            }
+        }
     }
 })
 
@@ -443,11 +457,15 @@ function checkTask() {
                         //checkt als het niet donker is
                         if (!isDark) {
                             activateAlarm(i);
-                            tasksStatus[i] = true;
+                            if (!taskRepeat) {
+                                tasksStatus[i] = true;
+                            }
                         }
                     } else {
                         activateAlarm(i);
-                        tasksStatus[i] = true;
+                        if (!taskRepeat) {
+                            tasksStatus[i] = true;
+                        }
                     }
                 }
             }
@@ -457,12 +475,16 @@ function checkTask() {
                     if (!isDark) {
                         betweenTime = true;
                         activateAlarm(i);
-                        tasksStatus[i] = true;
+                        if (!taskRepeat) {
+                            tasksStatus[i] = true;
+                        }
                     }
                 } else {
                     betweenTime = true;
                     activateAlarm(i);
-                    tasksStatus[i] = true;
+                    if (!taskRepeat) {
+                        tasksStatus[i] = true;
+                    }
                 }
             }
             else {
@@ -484,6 +506,7 @@ function activateAlarm(pos: number) {
         light.clear();
         betweenTime = false;
         signalRead = false;
+
     }
 }
 
