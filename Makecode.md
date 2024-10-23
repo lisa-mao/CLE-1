@@ -17,7 +17,7 @@ let firstDayPast = false;
 
 //De current time
 let appHoursSet = 10;
-let appMinutesSet = 19;
+let appMinutesSet = 13;
 
 let a: number[] = [0,0,0,0,0,0,0,0,0,0];
 
@@ -25,7 +25,7 @@ let a: number[] = [0,0,0,0,0,0,0,0,0,0];
 let betweenTime = false
 
 //checkt als de infrorood sensor is afgegaan
-let signalRead = true; //VOOR TESTING NORMAAL MOET IE OP FALSE
+let signalRead = false; //VOOR TESTING NORMAAL MOET IE OP FALSE
 
 // slaat de status van de task op
 let tasksStatus: boolean[] = [];
