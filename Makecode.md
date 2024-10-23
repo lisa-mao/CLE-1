@@ -19,6 +19,7 @@ let firstDayPast = false;
 let appHoursSet = 10;
 let appMinutesSet = 19;
 
+let a: number[] = [0,0,0,0,0,0,0,0,0,0];
 
 //checkt als de current tijd zich in de task blok zit.
 let betweenTime = false
@@ -435,6 +436,9 @@ function checkTask() {
                                     tasksStatus[j] = true;
                                 } else {
                                     taskRepeat24hReset[j] = true
+                                    a[i] = control.timer1.seconds() + 86400;
+
+                                        
                                 }
 
                             }
@@ -442,10 +446,11 @@ function checkTask() {
                     } else {
                         activateAlarm(i);
                         for (let j = 0; j < taskRepeat.length; j++) {
-                            if (!taskRepeat[j]) {
-                                tasksStatus[j] = true;
+                            if (!taskRepeat[i]) {
+                                tasksStatus[i] = true;
                             } else {
-                                taskRepeat24hReset[j] = true
+                                taskRepeat24hReset[i] = true
+                                a[i] = control.timer1.seconds() + 86400;
                             }
 
                         }
@@ -461,10 +466,11 @@ function checkTask() {
 
 
                         for (let j = 0; j < taskRepeat.length; j++) {
-                            if (!taskRepeat[j]) {
-                                tasksStatus[j] = true;
+                            if (!taskRepeat[i]) {
+                                tasksStatus[i] = true;
                             } else {
-                                taskRepeat24hReset[j] = true
+                                taskRepeat24hReset[i] = true
+                                a[i] = control.timer1.seconds() + 86400;
                             }
 
                         }
@@ -473,10 +479,11 @@ function checkTask() {
                     betweenTime = true;
                     activateAlarm(i);
                     for (let j = 0; j < taskRepeat.length; j++) {
-                        if (!taskRepeat[j]) {
-                            tasksStatus[j] = true;
+                        if (!taskRepeat[i]) {
+                            tasksStatus[i] = true;
                         } else {
-                            taskRepeat24hReset[j] = true
+                            taskRepeat24hReset[i] = true
+                            a[i] = control.timer1.seconds() + 86400;
                         }
 
                     }
@@ -484,6 +491,10 @@ function checkTask() {
             }
             else {
                 betweenTime = false;
+            }
+
+            if (control.timer1.seconds() > a[i]) {
+                taskRepeat24hReset[i] = false;
             }
 
         }
@@ -538,5 +549,6 @@ forever(function () {
     } else {
         isDark = false;
     }
+
 
 })
