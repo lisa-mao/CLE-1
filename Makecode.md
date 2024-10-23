@@ -16,8 +16,8 @@ let firstHourPast = false;
 let firstDayPast = false;
 
 //De current time
-let appHoursSet = 0;
-let appMinutesSet = 30;
+let appHoursSet = 10;
+let appMinutesSet = 19;
 
 
 //checkt als de current tijd zich in de task blok zit.
@@ -29,34 +29,14 @@ let signalRead = true; //VOOR TESTING NORMAAL MOET IE OP FALSE
 // slaat de status van de task op
 let tasksStatus: boolean[] = [];
 
-
 //checkt als  de lightlevel conditities goed zijn
 let lightlevel = 0;
 let isDark = false;
 
-//long press A om task selector aan te zetten
-// Je kan 10 tasks gebruiken. Allemaal een aparte kleur
-// nadat je een task selecteerd hebt speelt een geluid af op het apparaat
-// je moet nu een starttijd en eindtijd selecteren
-// je selecteerd eerst het dag deel [ochtend, middag, avond, nacht] voor de startijd, 4 ledjes gaan aan als je er 1 selecteerd krijgt hij een andere kleur.
-// long press A om te selecteren er speelt een geluid af
-// blokken van 6 uur per dag deel, 6 ledjes gaan aan, als je er 1 selecteerd krijgt die een andere kleur.
-// longpress A om te selecteren
-// ander geluid als de starttijd geselecteerd is.
-// kies nu weer een dagdeel voor de eindtijd
-// vervolgens een tijd
-// als dit gelukt is speel een geluidje af
-
-// per kwartier tijd instellen
-//task oneindig maken of een paar keer laten repeaten. 1 kleur led voor oneindig en een andere kleur met steeds donkerdere tinten voor hoeveel repeaten.
-//task verwijderen toevoegen met longclick b, zet de leds aan van de tasks die active zijn. die kan je vervolgens selecteren.
-// longclick a+b om alles te verwijderen
-// a+b om selectie proces te laten starten
-
 let resetTime = 0;
 let lightSensorActivated = true;
 
-let taskRepeat = true;
+let taskRepeat = [true, true, true, true, true, true, true, true, true, true];
 
 let selectorModeOn = false
 let selectorPhase = 0
@@ -69,7 +49,7 @@ let startTimeSelector15Minutes = 0
 let endTimeSelector15Minutes = 0
 let taskColorsArray: number[] = [Colors.Blue, Colors.Green, Colors.Indigo, Colors.Orange, Colors.Pink, Colors.Purple, Colors.Red, Colors.Violet, Colors.White, Colors.Yellow]
 let activeTasksArray = [false, false, false, false, false, false, false, false, false, false]
-
+let taskRepeat24hReset = [false, false, false, false, false, false, false, false, false, false]
 //array om het begin en eind uur van een taak op te slaan.
 let taskHourStartArray: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let taskHourEndArray: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -188,7 +168,9 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
             calculationTime();
             // activeTasksArray[taskSelector] = true;
             light.clear()
-            light.showRing("green green green green green black black black black black");
+            taskRepeat[taskSelector] = true
+            light.showRing("black black black black black green green green green green");
+
             // selectorModeOn = false
 
         }
@@ -357,12 +339,12 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
 
         if (selectorPhase === 8) {
             light.clear();
-            if (taskRepeat) {
-                taskRepeat = false;
-                light.showRing("black black black black black red red red red red");
+            if (taskRepeat[taskSelector]) {
+                taskRepeat[taskSelector] = false;
+                light.showRing("red red red red red black black black black black");
             } else {
-                taskRepeat = true;
-                light.showRing("green green green green green black black black black black");
+                taskRepeat[taskSelector] = true;
+                light.showRing("black black black black black green green green green green");
             }
         }
     }
@@ -403,11 +385,14 @@ function signalTriggerd() {
     }
 }
 
+
+
+
 //De functie die alles kwa tijd bijhoudt.
 function currentTime() {
 
     //telt seconden op
-    pause(125); //pause(1000);
+    pause(1000);
     if (secCounter > 60) {
         minCounter++;
         secCounter = 1;
@@ -467,14 +452,24 @@ function checkTask() {
                         //checkt als het niet donker is
                         if (!isDark) {
                             activateAlarm(i);
-                            if (!taskRepeat) {
-                                tasksStatus[i] = true;
+                            for (let j = 0; j < taskRepeat.length; j++) {
+                                if (!taskRepeat[j]) {
+                                    tasksStatus[j] = true;
+                                } else {
+                                    taskRepeat24hReset[j] = true
+                                }
+
                             }
                         }
                     } else {
                         activateAlarm(i);
-                        if (!taskRepeat) {
-                            tasksStatus[i] = true;
+                        for (let j = 0; j < taskRepeat.length; j++) {
+                            if (!taskRepeat[j]) {
+                                tasksStatus[j] = true;
+                            } else {
+                                taskRepeat24hReset[j] = true
+                            }
+
                         }
                     }
                 }
@@ -485,15 +480,27 @@ function checkTask() {
                     if (!isDark) {
                         betweenTime = true;
                         activateAlarm(i);
-                        if (!taskRepeat) {
-                            tasksStatus[i] = true;
+
+
+                        for (let j = 0; j < taskRepeat.length; j++) {
+                            if (!taskRepeat[j]) {
+                                tasksStatus[j] = true;
+                            } else {
+                                taskRepeat24hReset[j] = true
+                            }
+
                         }
                     }
                 } else {
                     betweenTime = true;
                     activateAlarm(i);
-                    if (!taskRepeat) {
-                        tasksStatus[i] = true;
+                    for (let j = 0; j < taskRepeat.length; j++) {
+                        if (!taskRepeat[j]) {
+                            tasksStatus[j] = true;
+                        } else {
+                            taskRepeat24hReset[j] = true
+                        }
+
                     }
                 }
             }
@@ -510,7 +517,7 @@ function activateAlarm(pos: number) {
     console.log(tasksStatus[pos]);
     if (betweenTime && !tasksStatus[pos]) {
         console.log("value")
-        light.setAll(Colors.White);
+        light.setAll(Colors.Green);
         pause(1000);
         music.playTone(Note.E, 1000);
         light.clear();
@@ -523,9 +530,9 @@ function activateAlarm(pos: number) {
 
 
 //START VAN PROGRAMMA
-// for (let i = 0; i < taskHourStartArray.length; i++) {
-//     tasksStatus.push(false);
-// }
+for (let i = 0; i < taskHourStartArray.length; i++) {
+    tasksStatus.push(false);
+}
 
 music.setVolume(1000);
 
