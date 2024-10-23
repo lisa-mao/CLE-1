@@ -53,6 +53,8 @@ a {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    top: 0;
     background-color: #ecce8e;
     border-bottom: 2px solid black;
 }
@@ -94,22 +96,32 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     background-image: url(../images/collage.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    background-blend-mode: lighten;
-    background-color: #665f5f;
     border-bottom: 2px solid black;
-    transition: all 1s ease;
 }
 
-.header-website:hover {
-    background-color: #c2b3b3;
+.header-website div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #ecce8eee;
+    border-radius: 10px;
+    padding: 25px;
 }
 
 .header-website h1 {
     font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.header-website p {
+    font-size: 1.25rem;
 }
 
 .user-manual, .process, .introductions {
@@ -182,7 +194,6 @@ a {
     width: 90%;
 }
 
-
 .process-steps {
     width: 90vw;
     display: flex;
@@ -213,7 +224,12 @@ a {
 
 .process-text section h3 {
     font-weight: bold;
+    font-size: 1.5rem;
     margin-bottom: 5px;
+}
+
+.process-text section p {
+    font-size: 1.25rem;
 }
 
 .process-image {
@@ -242,6 +258,14 @@ footer {
     background-color: #ecce8e;
 }
 
+footer section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
 footer p {
     font-size: 0.75rem;
     margin-right: 20px;
@@ -268,7 +292,7 @@ footer a:hover {
         align-items: center;
         background-color: #ecce8e;
     }
-
+    
     .header-app h1 {
         font-size: 1.5rem;
     }
