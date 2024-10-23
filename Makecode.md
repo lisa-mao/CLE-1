@@ -33,35 +33,48 @@ let tasksStatus: boolean[] = [];
 let lightlevel = 0;
 let isDark = false;
 
+//als je inactief bent wordt het apparaat weer terug gezet naar de 1e stap
 let resetTime = 0;
 let lightSensorActivated = true;
 
+// bekijkt of een task elke dag moet worden gerepeat
 let taskRepeat = [true, true, true, true, true, true, true, true, true, true];
 
+//checkt of je in de task aanmaak fase zit
 let selectorModeOn = false
+// checkt in welke fase je van de task aanmaken bent
 let selectorPhase = 0
+//checkt welke task je selecteerd
 let taskSelector = 0
+// kies een dagdeel voor de start- en eindtijd
 let partOfDaySelectorStart = 0
 let partOfDaySelectorEnd = 0
+//kies het uur binnen het dagdeel voor de start- en eindtijd
 let startTimeSelectorHour = 0
 let endTimeSelectorHour = 0
+//kies welk kwartier binnen het uur voor de start- en eindtijd
 let startTimeSelector15Minutes = 0
 let endTimeSelector15Minutes = 0
+//een array voor de kleuren van elke task
 let taskColorsArray: number[] = [Colors.Blue, Colors.Green, Colors.Indigo, Colors.Orange, Colors.Pink, Colors.Purple, Colors.Red, Colors.Violet, Colors.White, Colors.Yellow]
+//checkt welke tasks actief zijn op het moment
 let activeTasksArray = [false, false, false, false, false, false, false, false, false, false]
+//als een task op repeat staat zorgt dit ervoor dat hij niet constant af gaat maar 1 keer per dag
 let taskRepeat24hReset = [false, false, false, false, false, false, false, false, false, false]
-//array om het begin en eind uur van een taak op te slaan.
+//slaat de tijden op van de start- en eindtijden
 let taskHourStartArray: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let taskHourEndArray: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let task15MinutesStartArray: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let task15MinutesEndArray: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+//berekent de start en eindtijd in uren en kwartieren gebaseerd op een 24h klok
 function calculationTime() {
     taskHourStartArray[taskSelector] = (partOfDaySelectorStart * 6) + startTimeSelectorHour;
     taskHourEndArray[taskSelector] = (partOfDaySelectorEnd * 6) + endTimeSelectorHour;
     task15MinutesStartArray[taskSelector] = startTimeSelector15Minutes * 15;
     task15MinutesEndArray[taskSelector] = endTimeSelector15Minutes * 15;
 }
+// functie om terug te gaan naar de 1e stap als je een foutje hebt gemaakt tijdens het aanmaken van een task
 function resetSelection(colour: number) {
     if (selectorModeOn) {
         for (let i = 0; i < 4; i++) {
@@ -87,7 +100,7 @@ function resetSelection(colour: number) {
 input.buttonA.onEvent(ButtonEvent.LongClick, function () {
     resetSelection(Colors.White);
 })
-//ab click om de lightsensor aan of uit te zetten
+//zet het gebruiken van de lichtsensor aan of uit
 input.buttonsAB.onEvent(ButtonEvent.Click, function () {
     if (lightSensorActivated) {
 
@@ -110,10 +123,8 @@ input.buttonsAB.onEvent(ButtonEvent.Click, function () {
 
 })
 
-//ab longclick om alle waardes weg te halen
+//reset alle tasks
 input.buttonsAB.onEvent(ButtonEvent.LongClick, function () {
-
-    //reset alle opgeseslagen tasks
     activeTasksArray = [false, false, false, false, false, false, false, false, false, false];
     taskHourStartArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     taskHourEndArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -122,7 +133,7 @@ input.buttonsAB.onEvent(ButtonEvent.LongClick, function () {
 
 })
 
-//longclick
+//verwijder een specifieke task
 input.buttonB.onEvent(ButtonEvent.LongClick, function () {
     if (selectorPhase === 1 && activeTasksArray[taskSelector]) {
         activeTasksArray[taskSelector] = false
@@ -130,7 +141,7 @@ input.buttonB.onEvent(ButtonEvent.LongClick, function () {
     }
 })
 
-
+//functie om de volgende fase klaar te zetten in de task aanmaak fasen
 function selectorPhaseChange(pos: number, color: number, amountRepeat: number) {
     selectorPhase = pos + 1;
     light.clear()
@@ -146,23 +157,15 @@ function selectorPhaseChange(pos: number, color: number, amountRepeat: number) {
     }
 
 }
-
+//bevestig een gekozen input in het aanmaken van een task
 input.buttonB.onEvent(ButtonEvent.Click, function () {
-
-
-
     if (selectorModeOn) {
-        //zet de task vast met begin en eindtijd
         if (selectorPhase === 8) {
             music.playTone(Note.B, 1000);
             activeTasksArray[taskSelector] = true
             light.clear();
             selectorModeOn = false;
-
         }
-
-
-
         if (selectorPhase === 7) {
             selectorPhase++;
             calculationTime();
@@ -209,7 +212,7 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
 
 
 
-
+// bij het selecteren van inputs
 function blinkColours(pos: number, colour: number) {
     light.setPixelColor(pos, Colors.Black);
     pause(100)
@@ -221,25 +224,6 @@ function blinkAnimation() {
     for (let i = 0; i < 2; i++) {
         if (selectorPhase === 1) {
             blinkColours(taskSelector, taskColorsArray[taskSelector]);
-        }
-        if (selectorPhase === 2) {
-            blinkColours(partOfDaySelectorStart, Colors.Red);
-        }
-        if (selectorPhase === 3) {
-            blinkColours(startTimeSelectorHour, Colors.Orange);
-        }
-        if (selectorPhase === 4) {
-            blinkColours(startTimeSelector15Minutes, Colors.Green);
-        }
-        if (selectorPhase === 5) {
-            blinkColours(partOfDaySelectorEnd, Colors.Red);
-        }
-        if (selectorPhase === 6) {
-            blinkColours(endTimeSelectorHour, Colors.Orange);
-        }
-        if (selectorPhase === 7) {
-            blinkColours(endTimeSelector15Minutes, Colors.Green);
-
         }
     }
 
@@ -270,7 +254,6 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 light.setPixelColor(3, Colors.Blue)
             }
             light.setPixelColor(partOfDaySelectorStart, Colors.Red)
-            blinkAnimation();
         }
         //selecteer het uur van de starttijd
         if (selectorPhase === 3) {
@@ -284,7 +267,6 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 light.setPixelColor(5, Colors.Blue)
             }
             light.setPixelColor(startTimeSelectorHour, Colors.Orange)
-            blinkAnimation();
         }
         //selecteer starttijd per kwartier
         if (selectorPhase === 4) {
@@ -296,7 +278,6 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 light.setPixelColor(3, Colors.Blue)
             }
             light.setPixelColor(startTimeSelector15Minutes, Colors.Green)
-            blinkAnimation();
         }
         //selecteer het dagdeel van de eindtijd
         if (selectorPhase === 5) {
@@ -308,7 +289,6 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 light.setPixelColor(3, Colors.Blue)
             }
             light.setPixelColor(partOfDaySelectorEnd, Colors.Red)
-            blinkAnimation();
         }
         //selecteer het uur van de eindtijd
         if (selectorPhase === 6) {
@@ -322,7 +302,6 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 light.setPixelColor(5, Colors.Blue)
             }
             light.setPixelColor(endTimeSelectorHour, Colors.Orange)
-            blinkAnimation();
         }
         //eindtijd per kwartier instellen
         if (selectorPhase === 7) {
@@ -334,7 +313,6 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
                 light.setPixelColor(3, Colors.Blue)
             }
             light.setPixelColor(endTimeSelector15Minutes, Colors.Green)
-            blinkAnimation();
         }
 
         if (selectorPhase === 8) {
