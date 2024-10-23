@@ -19,7 +19,7 @@ let firstDayPast = false;
 let appHoursSet = 10;
 let appMinutesSet = 13;
 
-let a: number[] = [0,0,0,0,0,0,0,0,0,0];
+let a: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 //checkt als de current tijd zich in de task blok zit.
 let betweenTime = false
@@ -162,7 +162,7 @@ function selectorPhaseChange(pos: number, color: number, amountRepeat: number) {
 input.buttonB.onEvent(ButtonEvent.Click, function () {
     if (selectorModeOn) {
         if (selectorPhase === 8) {
-            music.playTone(Note.B, 1000);
+            // music.playTone(Note.B, 1000);
             activeTasksArray[taskSelector] = true
             light.clear();
             selectorModeOn = false;
@@ -371,7 +371,7 @@ function signalTriggerd() {
 function currentTime() {
 
     //telt seconden op
-    pause(1000);
+    pause(250); //testing value
     if (secCounter > 60) {
         minCounter++;
         secCounter = 1;
@@ -431,29 +431,27 @@ function checkTask() {
                         //checkt als het niet donker is
                         if (!isDark) {
                             activateAlarm(i);
-                            for (let j = 0; j < taskRepeat.length; j++) {
-                                if (!taskRepeat[j]) {
-                                    tasksStatus[j] = true;
-                                } else {
-                                    taskRepeat24hReset[j] = true
-                                    a[i] = control.timer1.seconds() + 86400;
+                            // for (let j = 0; j < taskRepeat.length; j++) {
+                            //     if (!taskRepeat[j]) {
+                            //         tasksStatus[j] = true;
+                            //     } else {
+                            //         taskRepeat24hReset[j] = true
+                            //         a[i] = control.timer1.seconds() + 86400;
+                            //     }
 
-                                        
-                                }
-
-                            }
+                            // }
                         }
                     } else {
                         activateAlarm(i);
-                        for (let j = 0; j < taskRepeat.length; j++) {
-                            if (!taskRepeat[i]) {
-                                tasksStatus[i] = true;
-                            } else {
-                                taskRepeat24hReset[i] = true
-                                a[i] = control.timer1.seconds() + 86400;
-                            }
+                        // for (let j = 0; j < taskRepeat.length; j++) {
+                        //     if (!taskRepeat[i]) {
+                        //         tasksStatus[i] = true;
+                        //     } else {
+                        //         taskRepeat24hReset[i] = true
+                        //         a[i] = control.timer1.seconds() + 86400;
+                        //     }
 
-                        }
+                        // }
                     }
                 }
             }
@@ -465,28 +463,28 @@ function checkTask() {
                         activateAlarm(i);
 
 
-                        for (let j = 0; j < taskRepeat.length; j++) {
-                            if (!taskRepeat[i]) {
-                                tasksStatus[i] = true;
-                            } else {
-                                taskRepeat24hReset[i] = true
-                                a[i] = control.timer1.seconds() + 86400;
-                            }
+                        // for (let j = 0; j < taskRepeat.length; j++) {
+                        //     if (!taskRepeat[i]) {
+                        //         tasksStatus[i] = true;
+                        //     } else {
+                        //         taskRepeat24hReset[i] = true
+                        //         a[i] = control.timer1.seconds() + 86400;
+                        //     }
 
-                        }
+                        // }
                     }
                 } else {
                     betweenTime = true;
                     activateAlarm(i);
-                    for (let j = 0; j < taskRepeat.length; j++) {
-                        if (!taskRepeat[i]) {
-                            tasksStatus[i] = true;
-                        } else {
-                            taskRepeat24hReset[i] = true
-                            a[i] = control.timer1.seconds() + 86400;
-                        }
+                    // for (let j = 0; j < taskRepeat.length; j++) {
+                    //     if (!taskRepeat[i]) {
+                    //         tasksStatus[i] = true;
+                    //     } else {
+                    //         taskRepeat24hReset[i] = true
+                    //         a[i] = control.timer1.seconds() + 86400;
+                    //     }
 
-                    }
+                    // }
                 }
             }
             else {
@@ -504,14 +502,26 @@ function checkTask() {
 //functie om het alarm te activeren
 function activateAlarm(pos: number) {
     console.log(tasksStatus[pos]);
-    if (betweenTime && !tasksStatus[pos]) {
+    if (betweenTime && !tasksStatus[pos] && taskRepeat24hReset) {
         console.log("value")
-        light.setAll(Colors.Green);
+        light.setAll(Colors.Orange);
         pause(1000);
         music.playTone(Note.E, 1000);
         light.clear();
         betweenTime = false;
         signalRead = false;
+
+        for (let j = 0; j < taskRepeat.length; j++) {
+            if (!taskRepeat[pos]) {
+                tasksStatus[pos] = true;
+            } else {
+                taskRepeat24hReset[pos] = true
+                a[pos] = control.timer1.seconds() + 86400;
+
+
+            }
+
+        }
 
     }
 }
@@ -534,8 +544,8 @@ forever(function () {
 
     tookTooLong();
 
-    console.log(minCounter)
-    // console.log(`seconden: ${secCounter}`);
+    console.log(`seconden: ${secCounter}`);
+    console.log(`minuten: ${minCounter}`);
     if (selectorModeOn && selectorPhase === 1) {
         for (let i = 0; i < taskColorsArray.length; i++) {
             if (activeTasksArray[i]) {
